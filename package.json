@@ -19,6 +19,9 @@
     "url": "https://github.com/ziomecka/rendering-recursive.git"
   },
   "devDependencies": {
+    "@babel/core": "7.6.2",
+    "@babel/preset-env": "7.6.2",
+    "@babel/register": "7.6.2"
   },
   "engines": {
     "node": "12.11.1",
