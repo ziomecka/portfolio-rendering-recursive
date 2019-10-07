@@ -1,4 +1,7 @@
 node_modules
 tsc*
 !tsconfig*
+src/server-side/*.js
+src/client-side/*.js
+src/common/*.js
 @types/*
