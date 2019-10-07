@@ -1,0 +1,16 @@
+{
+  "packages": [
+    "src/server-side/"
+  ],
+  "version": "0.0.0",
+  "command": {
+    "publish": {
+      "ignoreChanges": [
+        "*.ts",
+        "!*.d.ts",
+        "*.md"
+      ],
+      "message": "chore(release): publish"
+    }
+  }
+}

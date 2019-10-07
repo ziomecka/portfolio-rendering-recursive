@@ -2,6 +2,7 @@ node_modules
 tsc*
 !tsconfig*
 .env
+lerna-debug.log
 src/server-side/*.js
 src/client-side/*.js
 src/common/*.js
