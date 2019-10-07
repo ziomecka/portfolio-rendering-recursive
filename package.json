@@ -1,0 +1,27 @@
+{
+  "name": "render-recursively",
+  "version": "0.0.0",
+  "description": "Recursive rendering of html nodes for client and server side",
+  "keywords": [
+    "rendering",
+    "recursive",
+    "server-side",
+    "client-side",
+    "unit tests"
+  ],
+  "scripts": {
+  },
+  "author": "Katarzyna Ziomek-Zdanowicz <ziomecka78@gmail.com>",
+  "license": "ISC",
+  "homepage": "https://github.com/ziomecka/rendering-recursive#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ziomecka/rendering-recursive.git"
+  },
+  "devDependencies": {
+  },
+  "engines": {
+    "node": "12.11.1",
+    "npm": "6.4.1"
+  }
+}
