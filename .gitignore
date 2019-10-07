@@ -1,6 +1,7 @@
 node_modules
 tsc*
 !tsconfig*
+.env
 src/server-side/*.js
 src/client-side/*.js
 src/common/*.js
