@@ -12,6 +12,7 @@
   "scripts": {
     "bundleDev": "./set-env-vars.sh development && npm run webpack",
     "bundleProd": "./set-env-vars.sh production && npm run webpack",
+    "inspect": "node --inspect-brk node_modules/webpack/bin/webpack.js --config ./webpack/index.babel.js",
     "lint": "eslint . --ext .ts,.js",
     "test": "mocha -r ts-node/register src/**/*spec.js",
     "webpack": "webpack --config ./webpack/index.babel.js",
