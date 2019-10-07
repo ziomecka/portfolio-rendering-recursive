@@ -10,6 +10,7 @@
     "unit tests"
   ],
   "scripts": {
+    "lint": "eslint . --ext .ts"
   },
   "author": "Katarzyna Ziomek-Zdanowicz <ziomecka78@gmail.com>",
   "license": "ISC",
@@ -23,6 +24,9 @@
     "@babel/preset-env": "7.6.2",
     "@babel/register": "7.6.2",
     "@types/node": "12.7.9",
+    "@typescript-eslint/eslint-plugin": "2.3.2",
+    "@typescript-eslint/parser": "2.3.2",
+    "eslint": "6.5.1",
     "ts-node": "8.4.1",
     "typescript": "3.6.3"
   },
