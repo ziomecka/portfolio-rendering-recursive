@@ -17,7 +17,7 @@ const buildCreateHTMLElement = (document: CustomDocument) => (
   ): CustomHTMLElement => {
     const $element = document.createElement(HTMLTag);
 
-    $element.append(document.createTextNode(value));
+    if (value) $element.append(document.createTextNode(value));
 
     className
       .split(' ')
