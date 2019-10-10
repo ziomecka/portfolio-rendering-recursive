@@ -25,20 +25,26 @@ const buildAppendChild = (
   ): CustomDocumentFragment => {
     const fragment = documentFragment || document.createDocumentFragment();
 
-    if (!children || !children.length) {
-      if (HTMLTag) {
-        fragment.append(
-          createElement({ HTMLTag, value, label, ...otherProps })
-        );
-      } else if (value || label) {
-        fragment.append(
-          document.createTextNode(concatTexts(value, label))
-        );
-      } else if (otherProps[0]) {
-        const item = (otherProps as CustomHTMLCollection)[0];
-        fragment.append(item);
+    const append = (
+      ($parent: CustomDocumentFragment): CustomDocumentFragment => {
+        if (HTMLTag) {
+          $parent.append(
+            createElement({ HTMLTag, value, label, ...otherProps })
+          );
+        } else if (value || label) {
+          $parent.append(
+            document.createTextNode(concatTexts(value, label))
+          );
+        } else if (otherProps[0]) {
+          $parent.append((otherProps as CustomHTMLCollection)[0]);
+        }
+
+        return $parent;
       }
-      return fragment;
+    );
+
+    if (!children || !children.length) {
+      return append(fragment);
     }
 
     const $element = HTMLTag
@@ -47,15 +53,19 @@ const buildAppendChild = (
     const $fragment = document.createDocumentFragment();
     const $parent = $element || $fragment;
 
-    children.forEach(child => {
-      if (typeof child === 'string') {
-        if (isSvg(child)) {
-          if ($element) $element.innerHTML = child;
+    children.forEach($child => {
+      if (typeof $child === 'string') {
+        if (isSvg($child)) {
+          if ($element) {
+            $element.innerHTML = $child;
+          } else {
+            console.warn('SVG element can be child only of HTMLElement'); // eslint-disable-line
+          }
         } else {
-          $parent.append(document.createTextNode(child));
+          $parent.append(document.createTextNode($child));
         }
-      } else if (child) {
-        appendChild(child, $fragment);
+      } else if ($child) {
+        appendChild($child, $fragment);
       }
     });
 
