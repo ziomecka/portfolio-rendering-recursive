@@ -47,6 +47,16 @@ export class SSRElement {
     }
   }
 
+  public get innerHTML (): string {
+    return this.renderChildren();
+  }
+
+  public set innerHTML (value: string) {
+    if (typeof value === 'string') {
+      this._children.push(value);
+    }
+  }
+
   public get className (): string {
     return this.classList.className;
   }
