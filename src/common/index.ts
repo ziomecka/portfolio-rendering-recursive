@@ -9,7 +9,7 @@ import {
 
 const buildRender: buildRender = (
   (document: CustomDocument) => (
-    (props: HTMLElementProps): CustomHTMLCollection => {
+    (props: HTMLElementProps = {}): CustomHTMLCollection => {
       if (props) {
         const createHtmlElement = ({
           HTMLTag,
