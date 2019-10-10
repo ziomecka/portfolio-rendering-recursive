@@ -9,7 +9,7 @@
   ],
   "author": "Katarzyna Ziomek-Zdanowicz <ziomecka78@gmail.com>",
   "homepage": "https://github.com/ziomecka/rendering-recursive/src/server-side#readme",
-  "license": "ISC",
+  "license": "MIT",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -24,5 +24,5 @@
     "./index.js",
     "@types/*"
   ],
-  "gitHead": "37339e53c435ab9889842ef4be1063b60ffd06af"
+  "gitHead": "61c224b9825ad3494d564d9c4d27226a26d2bd50"
 }
