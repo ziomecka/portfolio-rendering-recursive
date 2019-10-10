@@ -25,6 +25,7 @@ export type HTMLElementProps = {
   label?: string;
   className?: string;
   children?: HTMLElementProps[];
+  innerHTML?: string;
   onClick?(...args: unknown[]): void;
   onSubmit?(...args: unknown[]): void;
   onChange?(...args: unknown[]): void;
@@ -38,8 +39,9 @@ type CustomAppend = (
 
 export interface CustomHTMLElement {
   HTMLTag?: HTMLTag;
-  innerText: string;
-  className: string;
+  innerText?: string;
+  innerHTML?: string;
+  className?: string;
   append: CustomAppend;
   classList?: { add(value: string): void };
   style?: Record<string, string>;
