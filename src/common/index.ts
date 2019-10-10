@@ -6,6 +6,7 @@ import {
   HTMLElementProps,
   buildRender,
 } from './types';
+import { concatTexts } from './utils/concat-texts';
 
 const buildRender: buildRender = (
   (document: CustomDocument) => (
@@ -14,6 +15,7 @@ const buildRender: buildRender = (
         const createHtmlElement = ({
           HTMLTag,
           value,
+          label,
           className,
           onClick,
           onSubmit,
@@ -26,7 +28,8 @@ const buildRender: buildRender = (
           attributes: {},
         }): CustomHTMLElement => {
           const $element = document.createElement(HTMLTag);
-          $element.innerText = value;
+          $element.append(document.createTextNode(concatTexts(value, label)));
+
           if (className) {
           }
           if (innerHTML) $element.innerHTML = innerHTML;
@@ -57,22 +60,34 @@ const buildRender: buildRender = (
         };
 
         const appendChild = (
-          { children, HTMLTag, ...otherProps }: HTMLElementProps,
+          { children, HTMLTag, value, label, ...otherProps }: HTMLElementProps = {},
           fragment: CustomDocumentFragment = document.createDocumentFragment(),
         ): CustomDocumentFragment => {
           if (!children || !children.length) {
-            fragment.append(createHtmlElement({ HTMLTag, ...otherProps }));
+            if (HTMLTag) {
+              fragment.append(
+                createHtmlElement({ HTMLTag, value, label, ...otherProps })
+              );
+            } else if (value || label) {
+              fragment.append(
+                document.createTextNode(concatTexts(value, label))
+              );
+            } else if (otherProps[0]) {
+              const [ item ] = otherProps as unknown as any[];
+              fragment.append(item);
+            }
             return fragment;
           }
 
-          const $element =
-            HTMLTag && createHtmlElement({ HTMLTag, ...otherProps });
+          const $element = HTMLTag && createHtmlElement({ HTMLTag, value, label, ...otherProps });
+
           const $fragment = document.createDocumentFragment();
+          const $parent = $element || $fragment;
 
           children.forEach(child => {
             if (typeof child === 'string') {
-              appendChild({ value: child }, $fragment);
-            } else {
+              $parent.append(document.createTextNode(child));
+            } else if (child) {
               appendChild(child, $fragment);
             }
           });
