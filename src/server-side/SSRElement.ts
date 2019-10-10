@@ -77,7 +77,21 @@ export class SSRElement {
   }
 
   private get attributes (): string {
-    return `${ this.className ? ` class="${ this.className }"` : '' }`;
+    const style = JSON.stringify(this.style);
+
+    return (
+      Object.keys(this._attributes)
+        .reduce((attrStr, attribute) => {
+          attrStr +=
+            `${ attribute
+              ? ` ${ attribute }="${ this._attributes[ attribute ] }"`
+              : ` ${ attribute }`
+            }`;
+          return attrStr;
+        }, '')
+        .concat(`${ this.className ? ` class="${ this.className }"` : '' }`)
+        .concat(style.substring(1, style.length - 1))
+    );
   }
 
   public setAttribute (name: string, value: string): void {
