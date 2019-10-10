@@ -24,6 +24,7 @@ export type HTMLElementProps = {
   value?: string;
   className?: string;
   children?: HTMLElementProps[];
+  attributes?: CustomElementAttributes;
 }
 
 type CustomAppend =
@@ -35,6 +36,7 @@ export interface CustomHTMLElement {
   className: string;
   append: CustomAppend;
   classList?: { add(value: string): void };
+  setAttribute(name: string, value: string): void;
 }
 
 export interface CustomDocument {
@@ -54,3 +56,10 @@ export interface CustomHTMLCollection {
 
 type Render<P, C> = (props: P) => C;
 type BuildRender<D, C, P> = (document: D) => Render<P, C>;
+
+export interface CustomElementAttributes {
+  id?: string;
+  title?: string;
+  href?: string;
+  src?: string;
+}
