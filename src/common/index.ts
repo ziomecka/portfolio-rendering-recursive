@@ -31,6 +31,9 @@ const buildRender: buildRender = (
           $element.append(document.createTextNode(concatTexts(value, label)));
 
           if (className) {
+            className
+              .split(' ')
+              .forEach(name => name && $element.classList.add(name));
           }
           if (innerHTML) $element.innerHTML = innerHTML;
 
