@@ -63,7 +63,9 @@ export class SSRElement {
   }
 
   public append (item: SSRElement | SSRFragment): void {
-    this._children.push(item.toString());
+    if (item) {
+      this._children.push(item.toString());
+    }
   }
 
   public toString (): string {
