@@ -11,13 +11,11 @@ const buildCreateHTMLElement = (document: CustomDocument) => (
     value,
     label,
     className,
-    onClick,
-    onSubmit,
-    onChange,
+    eventHandlers = {},
     innerHTML,
     style = {},
     attributes = {},
-  }: HTMLElementProps = { style: {}, attributes: {} },
+  }: HTMLElementProps = { style: {}, attributes: {}, eventHandlers: {} },
   ): CustomHTMLElement => {
     const $element = document.createElement(HTMLTag);
     $element.append(document.createTextNode(concatTexts(value, label)));
@@ -41,15 +39,12 @@ const buildCreateHTMLElement = (document: CustomDocument) => (
       });
     }
 
-    if (onClick) {
-      $element.addEventListener('click', onClick);
-    }
-    if (onSubmit) {
-      $element.addEventListener('submit', onSubmit);
-    }
-    if (onChange) {
-      $element.addEventListener('change', onChange);
-    }
+    Object.keys(eventHandlers).forEach(eventName => {
+      $element.addEventListener(
+        eventName.slice(2).toLowerCase(),
+        eventHandlers[eventName]
+      );
+    });
 
     return $element as unknown as CustomHTMLElement;
   }

@@ -1,3 +1,4 @@
+import { EventHandlers } from './event.types';
 import { HTMLTag } from './HTMLTag.types';
 
 export type HTMLElementProps = {
@@ -7,9 +8,7 @@ export type HTMLElementProps = {
   className?: string;
   children?: HTMLElementProps[];
   innerHTML?: string;
-  onClick?(...args: unknown[]): void;
-  onSubmit?(...args: unknown[]): void;
-  onChange?(...args: unknown[]): void;
+  eventHandlers?: EventHandlers;
   style?: Record<string, string>;
   attributes?: CustomElementAttributes;
 }
