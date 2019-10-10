@@ -16,14 +16,22 @@ class ClassList {
 }
 
 export class SSRElement {
+  public readonly _attributes: CustomElementAttributes;
+  private readonly selfClosing?: boolean;
   private _children: string[];
   public classList: ClassList;
+  public style: Record<string, string>;
   constructor (
     public readonly tagName: string,
-    private readonly selfClosing?: boolean
+    { selfClosing }: SSRElementProps = {}
   ) {
+    this.tagName = tagName;
+    this.selfClosing = selfClosing;
     this._children = [];
     this.classList = new ClassList();
+    this.tagName = tagName;
+    this._attributes = {};
+    this.style = {};
   }
 
   public get children (): string {
@@ -40,12 +48,24 @@ export class SSRElement {
     }
   }
 
+  public get innerHTML (): string {
+    return this.renderChildren();
+  }
+
+  public set innerHTML (value: string) {
+    if (typeof value === 'string') {
+      this._children.push(value);
+    }
+  }
+
   public get className (): string {
     return this.classList.className;
   }
 
   public append (item: SSRElement | SSRFragment): void {
-    this._children.push(item.toString());
+    if (item) {
+      this._children.push(item.toString());
+    }
   }
 
   public toString (): string {
@@ -60,7 +80,29 @@ export class SSRElement {
   }
 
   private get attributes (): string {
-    return `${ this.className ? ` class="${ this.className }"` : '' }`;
+    const style = JSON.stringify(this.style);
+
+    return (
+      Object.keys(this._attributes)
+        .reduce((attrStr, attribute) => {
+          attrStr +=
+            `${ attribute
+              ? ` ${ attribute }="${ this._attributes[ attribute ] }"`
+              : ` ${ attribute }`
+            }`;
+          return attrStr;
+        }, '')
+        .concat(`${ this.className ? ` class="${ this.className }"` : '' }`)
+        .concat(style.substring(1, style.length - 1))
+    );
+  }
+
+  public setAttribute (name: string, value: string): void {
+    this._attributes[name] = value;
+  }
+
+  public addEventListener (): void {
+    return null;
   }
 
   private get tags (): string[] {
@@ -76,4 +118,13 @@ export class SSRElement {
       return [ '', '' ];
     }
   }
+}
+
+interface CustomElementAttributes {
+  id?: string;
+  type?: string;
+}
+
+export interface SSRElementProps {
+  selfClosing?: boolean;
 }
