@@ -4,7 +4,6 @@ import { HTMLTag } from './HTMLTag.types';
 export type CustomHTMLElementProps = {
   HTMLTag?: HTMLTag;
   value?: string;
-  label?: string;
   className?: string;
   children?: CustomHTMLElementProps[];
   innerHTML?: string;

@@ -3,13 +3,11 @@ import {
   CustomHTMLElement,
   CustomHTMLElementProps,
 } from '../types/';
-import { concatTexts } from '../utils/concat-texts';
 
 const buildCreateHTMLElement = (document: CustomDocument) => (
   ({
     HTMLTag,
     value,
-    label,
     className = '',
     eventHandlers = {},
     innerHTML,
@@ -19,7 +17,7 @@ const buildCreateHTMLElement = (document: CustomDocument) => (
   ): CustomHTMLElement => {
     const $element = document.createElement(HTMLTag);
 
-    $element.append(document.createTextNode(concatTexts(value, label)));
+    $element.append(document.createTextNode(value));
 
     className
       .split(' ')

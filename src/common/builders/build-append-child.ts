@@ -6,7 +6,6 @@ import {
   CustomHTMLCollection,
   CustomHTMLElementProps,
 } from '../types/';
-import { concatTexts } from '../utils/concat-texts';
 import { isSvg } from '../utils/is-svg';
 
 const buildAppendChild = (
@@ -18,7 +17,6 @@ const buildAppendChild = (
       children,
       HTMLTag,
       value,
-      label,
       ...otherProps
     }: CustomHTMLElementProps = {},
     documentFragment?: CustomDocumentFragment,
@@ -29,11 +27,11 @@ const buildAppendChild = (
       ($parent: CustomDocumentFragment): CustomDocumentFragment => {
         if (HTMLTag) {
           $parent.append(
-            createElement({ HTMLTag, value, label, ...otherProps })
+            createElement({ HTMLTag, value, ...otherProps })
           );
-        } else if (value || label) {
+        } else if (value) {
           $parent.append(
-            document.createTextNode(concatTexts(value, label))
+            document.createTextNode(value)
           );
         } else if (otherProps[0]) {
           $parent.append((otherProps as CustomHTMLCollection)[0]);
@@ -48,7 +46,7 @@ const buildAppendChild = (
     }
 
     const $element = HTMLTag
-      ? createElement({ HTMLTag, value, label, ...otherProps })
+      ? createElement({ HTMLTag, value, ...otherProps })
       : null;
     const $fragment = document.createDocumentFragment();
     const $parent = $element || $fragment;
