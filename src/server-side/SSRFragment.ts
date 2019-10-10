@@ -7,7 +7,9 @@ export class SSRFragment {
   }
 
   public append (value: SSRFragment | SSRElement): void {
-    this.children.push(value.toString());
+    if (value) {
+      this.children.push(value.toString());
+    }
   }
 
   public toString (): string {
