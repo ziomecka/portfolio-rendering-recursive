@@ -24,6 +24,10 @@ export type HTMLElementProps = {
   value?: string;
   className?: string;
   children?: HTMLElementProps[];
+  onClick?(...args: unknown[]): void;
+  onSubmit?(...args: unknown[]): void;
+  onChange?(...args: unknown[]): void;
+  style?: Record<string, string>;
   attributes?: CustomElementAttributes;
 }
 
@@ -36,6 +40,8 @@ export interface CustomHTMLElement {
   className: string;
   append: CustomAppend;
   classList?: { add(value: string): void };
+  style?: Record<string, string>;
+  addEventListener(eventName: string, callback: (event: Event) => void): void;
   setAttribute(name: string, value: string): void;
 }
 
