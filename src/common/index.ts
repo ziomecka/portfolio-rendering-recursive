@@ -1,2 +1,6 @@
 export { buildRender } from './builders/';
-export { CustomHTMLElementProps } from './types/';
+export {
+  CustomHTMLElementProps,
+  HTMLTag,
+  EventHandlers,
+} from './types/';

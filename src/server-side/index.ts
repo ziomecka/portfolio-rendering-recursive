@@ -1,5 +1,7 @@
 import {
   CustomHTMLElementProps,
+  EventHandlers,
+  HTMLTag,
   buildRender,
 } from '../common/';
 import { SSRDocument } from './SSRDocument';
@@ -17,3 +19,9 @@ const render =
   );
 
 export default render;
+
+export {
+  CustomHTMLElementProps,
+  EventHandlers,
+  HTMLTag,
+};
