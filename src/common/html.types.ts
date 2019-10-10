@@ -1,6 +1,3 @@
-export type buildRender =
-  BuildRender<CustomDocument, CustomHTMLCollection, HTMLElementProps>;
-
 export type HTMLTag = |
 'a' |
 'button' |
@@ -66,9 +63,6 @@ export interface CustomHTMLCollection {
   length: number;
   children: { length: number };
 }
-
-type Render<P, C> = (props: P) => C;
-type BuildRender<D, C, P> = (document: D) => Render<P, C>;
 
 export interface CustomElementAttributes {
   id?: string;

@@ -1,6 +1,6 @@
 import * as sinon from 'sinon';
 import { Document } from './document.stub';
-import { buildRender } from '../index';
+import { buildRender } from '../';
 import { expect } from 'chai';
 import fixtures from './fixtures';
 
