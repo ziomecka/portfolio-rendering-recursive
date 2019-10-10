@@ -22,6 +22,7 @@ export type HTMLTag = |
 export type HTMLElementProps = {
   HTMLTag?: HTMLTag;
   value?: string;
+  label?: string;
   className?: string;
   children?: HTMLElementProps[];
   onClick?(...args: unknown[]): void;
@@ -31,8 +32,9 @@ export type HTMLElementProps = {
   attributes?: CustomElementAttributes;
 }
 
-type CustomAppend =
-  (element: CustomHTMLElement | CustomDocumentFragment) => void;
+type CustomAppend = (
+  element: CustomHTMLElement | CustomDocumentFragment | CustomTextNode
+) => void;
 
 export interface CustomHTMLElement {
   HTMLTag?: HTMLTag;
@@ -48,7 +50,10 @@ export interface CustomHTMLElement {
 export interface CustomDocument {
   createDocumentFragment(): CustomDocumentFragment;
   createElement(value: HTMLTag): CustomHTMLElement;
+  createTextNode(value: string): CustomTextNode;
 }
+
+export type CustomTextNode = string;
 
 export interface CustomDocumentFragment {
   append: CustomAppend;
