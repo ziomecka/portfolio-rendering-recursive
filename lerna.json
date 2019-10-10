@@ -1,5 +1,6 @@
 {
   "packages": [
+    "src/client-side/",
     "src/server-side/"
   ],
   "version": "0.0.1",
