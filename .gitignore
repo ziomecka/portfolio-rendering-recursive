@@ -7,3 +7,4 @@ src/server-side/*.js
 src/client-side/*.js
 src/common/*.js
 @types/*
+*.map

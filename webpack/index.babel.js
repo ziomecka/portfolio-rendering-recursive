@@ -14,6 +14,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
   mode: isProduction ? 'production' : 'development',
+  devtool: !isProduction ? 'source-map' : false,
   output: {
     path: path.resolve(__dirname, '../src/'),
     filename: '[name].js',
