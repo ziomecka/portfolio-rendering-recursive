@@ -7,6 +7,7 @@ import {
   buildRender,
 } from './types';
 import { concatTexts } from './utils/concat-texts';
+import { isSvg } from './utils/is-svg';
 
 const buildRender: buildRender = (
   (document: CustomDocument) => (
@@ -90,7 +91,11 @@ const buildRender: buildRender = (
 
           children.forEach(child => {
             if (typeof child === 'string') {
-              $parent.append(document.createTextNode(child));
+              if (isSvg(child)) {
+                if ($element) $element.innerHTML = child;
+              } else {
+                $parent.append(document.createTextNode(child));
+              }
             } else if (child) {
               appendChild(child, $fragment);
             }
