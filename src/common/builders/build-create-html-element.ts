@@ -10,7 +10,7 @@ const buildCreateHTMLElement = (document: CustomDocument) => (
     HTMLTag,
     value,
     label,
-    className,
+    className = '',
     eventHandlers = {},
     innerHTML,
     style = {},
@@ -18,26 +18,22 @@ const buildCreateHTMLElement = (document: CustomDocument) => (
   }: CustomHTMLElementProps = { style: {}, attributes: {}, eventHandlers: {} },
   ): CustomHTMLElement => {
     const $element = document.createElement(HTMLTag);
+
     $element.append(document.createTextNode(concatTexts(value, label)));
 
-    if (className) {
-      className
-        .split(' ')
-        .forEach(name => name && $element.classList.add(name));
-    }
+    className
+      .split(' ')
+      .forEach(name => name && $element.classList.add(name));
+
     if (innerHTML) $element.innerHTML = innerHTML;
 
-    if (style) {
-      Object.keys(style).forEach(key => {
-        $element.style[key] = style[key];
-      });
-    }
+    Object.keys(style).forEach(key => {
+      $element.style[key] = style[key];
+    });
 
-    if (attributes) {
-      Object.keys(attributes).forEach(key => {
-        $element.setAttribute(key, attributes[ key ]);
-      });
-    }
+    Object.keys(attributes).forEach(key => {
+      $element.setAttribute(key, attributes[ key ]);
+    });
 
     Object.keys(eventHandlers).forEach(eventName => {
       $element.addEventListener(
