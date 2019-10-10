@@ -12,4 +12,8 @@ export class SSRDocument {
   public createDocumentFragment (): SSRFragment {
     return new SSRFragment();
   }
+
+  public createTextNode (value = ''): string {
+    return value;
+  }
 }
