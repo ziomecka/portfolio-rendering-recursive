@@ -16,12 +16,14 @@ class ClassList {
 }
 
 export class SSRElement {
+  private readonly selfClosing?: boolean;
   private _children: string[];
   public classList: ClassList;
   constructor (
     public readonly tagName: string,
-    private readonly selfClosing?: boolean
+    { selfClosing }: SSRElementProps = {}
   ) {
+    this.selfClosing = selfClosing;
     this._children = [];
     this.classList = new ClassList();
   }
@@ -76,4 +78,7 @@ export class SSRElement {
       return [ '', '' ];
     }
   }
+}
+export interface SSRElementProps {
+  selfClosing?: boolean;
 }
