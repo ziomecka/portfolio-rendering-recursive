@@ -72,7 +72,6 @@ describe('buildRender returns function that', () => {
     expect($node.children).to.have.lengthOf(1);
 
     const [ $child ] = $node.children;
-    expect($child.innerText).to.equal(barProps.value);
     expect($child.tagName.toLowerCase()).to.equal(fixtures.barProps.HTMLTag);
     expect($child.className).to.equal(fixtures.barProps.className);
 
