@@ -3,7 +3,7 @@
     "src/client-side/",
     "src/server-side/"
   ],
-  "version": "0.0.6",
+  "version": "0.0.7",
   "command": {
     "publish": {
       "ignoreChanges": [
