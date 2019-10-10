@@ -7,12 +7,13 @@ import fixtures from './fixtures';
 const { spy } = sinon;
 
 describe('buildRender returns function that', () => {
-  const render = buildRender(document);
+  let render;
   let document;
   let jsdom;
 
   beforeEach(() => {
     ({ document, jsdom } = Document());
+    render = buildRender(document);
   });
 
   it('calls createDocumentFragment and createElement for single node', () => {
