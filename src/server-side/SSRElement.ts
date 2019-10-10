@@ -20,6 +20,7 @@ export class SSRElement {
   private readonly selfClosing?: boolean;
   private _children: string[];
   public classList: ClassList;
+  public style: Record<string, string>;
   constructor (
     public readonly tagName: string,
     { selfClosing }: SSRElementProps = {}
@@ -29,6 +30,7 @@ export class SSRElement {
     this.classList = new ClassList();
     this.tagName = tagName;
     this._attributes = {};
+    this.style = {};
   }
 
   public get children (): string {
