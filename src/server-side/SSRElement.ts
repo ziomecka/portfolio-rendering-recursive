@@ -25,6 +25,7 @@ export class SSRElement {
     public readonly tagName: string,
     { selfClosing }: SSRElementProps = {}
   ) {
+    this.tagName = tagName;
     this.selfClosing = selfClosing;
     this._children = [];
     this.classList = new ClassList();
