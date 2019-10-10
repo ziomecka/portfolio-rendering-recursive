@@ -2,43 +2,11 @@ import * as sinon from 'sinon';
 import { Document } from './document.stub';
 import { buildRender } from '../index';
 import { expect } from 'chai';
+import fixtures from './fixtures';
 
 const { spy } = sinon;
 
 describe('buildRender returns function that', () => {
-  const fooProps = {
-    HTMLTag: 'div',
-    value: 'some foo text',
-    className: 'some-foo-class',
-  };
-
-  const barProps = {
-    HTMLTag: 'p',
-    value: 'some bar text',
-    className: 'some-bar-class',
-  };
-
-  const someProps = {
-    HTMLTag: 'span',
-    value: 'some some text',
-    className: 'some-some-class',
-  };
-
-  const nested = {
-    ...fooProps,
-    children: [
-      {
-        ...barProps,
-        children: [
-          { ...someProps },
-          { ...someProps },
-          { ...someProps },
-        ],
-      },
-    ],
-  };
-
-  const expectedNestedHtml = '<!DOCTYPE html><html><head></head><body><div id="root"><div class="some-foo-class"><p class="some-bar-class"><span class="some-some-class"></span><span class="some-some-class"></span><span class="some-some-class"></span></p></div></div></body></html>';
   const render = buildRender(document);
   let document;
   let jsdom;
@@ -53,12 +21,12 @@ describe('buildRender returns function that', () => {
     spy(document, 'createElement');
 
     // when
-    render(fooProps);
+    render(fixtures.fooProps);
 
     // then
     expect(document.createDocumentFragment.calledOnce).to.be.true;
     expect(document.createElement.calledOnce).to.be.true;
-    expect(document.createElement.calledWith(fooProps.HTMLTag)).to.be.true;
+    expect(document.createElement.calledWith(fixtures.fooProps.HTMLTag)).to.be.true;
 
     // clean up
     document.createDocumentFragment.restore();
@@ -67,7 +35,7 @@ describe('buildRender returns function that', () => {
 
   it('returns node', () => {
     // when
-    const htmlCollection = render(fooProps);
+    const htmlCollection = render(fixtures.fooProps);
 
     // then
     expect(htmlCollection).to.have.lengthOf(1);
@@ -79,15 +47,15 @@ describe('buildRender returns function that', () => {
     spy(document, 'createElement');
 
     // when
-    render(nested);
+    render(fixtures.nested);
 
     document.createDocumentFragment.getCalls()
     // then
     expect(document.createDocumentFragment.getCalls()).to.have.lengthOf(3);
-    expect(document.createElement.getCalls()).to.have.lengthOf(5)
+    expect(document.createElement.getCalls()).to.have.lengthOf(3)
 
     const { args: [ tagName ] } = document.createElement.getCalls()[1];
-    expect(tagName).to.equal(barProps.HTMLTag);
+    expect(tagName).to.equal(fixtures.barProps.HTMLTag);
 
     // clean up
     document.createDocumentFragment.restore();
@@ -96,28 +64,31 @@ describe('buildRender returns function that', () => {
 
   it('returns nested nodes', () => {
     // when
-    const htmlCollection = render(nested);
+    const htmlCollection = render(fixtures.nested);
 
     // then
     const [ $node ] = htmlCollection;
     expect($node.children).to.have.lengthOf(1);
 
     const [ $child ] = $node.children;
-    expect($child.tagName.toLowerCase()).to.equal(barProps.HTMLTag);
     expect($child.innerText).to.equal(barProps.value);
-    expect($child.className).to.equal(barProps.className);
+    expect($child.tagName.toLowerCase()).to.equal(fixtures.barProps.HTMLTag);
+    expect($child.className).to.equal(fixtures.barProps.className);
 
     const deepestChildren = $child.children;
-    expect(deepestChildren).to.have.lengthOf(nested.children[0].children.length)
+    expect(deepestChildren).to.have.lengthOf(fixtures.nested.children[0].children.length)
   });
 
-  it('returns correct html', () => {
-    // given
-    const htmlCollection = render(nested);
+  fixtures.scenarios.forEach(({ props, result }) => {
+    it(`returns correct html for props: ${ JSON.stringify(props) }`, () => {
+      // given
+      const htmlCollection = render(props);
 
-    // when
-    document.getElementById('root').append(htmlCollection[0]);
+      // when
+      document.getElementById('root').append(htmlCollection[0]);
 
-    // then
-    expect(jsdom.serialize(document)).to.equal(expectedNestedHtml);
+      // then
+      expect(jsdom.serialize(document)).to.equal(result);
+    });
+  });
 });
