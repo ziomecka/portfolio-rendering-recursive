@@ -84,6 +84,10 @@ export class SSRElement {
     this._attributes[name] = value;
   }
 
+  public addEventListener (): void {
+    return null;
+  }
+
   private get tags (): string[] {
     const { tagName } = this;
     const notSelfClosing = !this.selfClosing;
