@@ -18,6 +18,7 @@ const buildRender: buildRender = (
           onClick,
           onSubmit,
           onChange,
+          innerHTML,
           style = {},
           attributes = {},
         }: HTMLElementProps = {
@@ -28,6 +29,7 @@ const buildRender: buildRender = (
           $element.innerText = value;
           if (className) {
           }
+          if (innerHTML) $element.innerHTML = innerHTML;
 
           if (style) {
             Object.keys(style).forEach(key => {
