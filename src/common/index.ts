@@ -15,6 +15,9 @@ const buildRender: buildRender = (
           HTMLTag,
           value,
           className,
+          onClick,
+          onSubmit,
+          onChange,
           style = {},
           attributes = {},
         }: HTMLElementProps = {
@@ -36,6 +39,16 @@ const buildRender: buildRender = (
             Object.keys(attributes).forEach(key => {
               $element.setAttribute(key, attributes[ key ]);
             });
+          }
+
+          if (onClick) {
+            $element.addEventListener('click', onClick);
+          }
+          if (onSubmit) {
+            $element.addEventListener('submit', onSubmit);
+          }
+          if (onChange) {
+            $element.addEventListener('change', onChange);
           }
 
           return $element;
