@@ -5,6 +5,7 @@ import {
 import {
   CustomDocument,
   CustomDocumentFragment,
+  CustomHTMLCollection,
   HTMLElementProps,
 } from '../html.types';
 import { concatTexts } from '../utils/concat-texts';
@@ -30,7 +31,7 @@ const buildAppendChild = (
           document.createTextNode(concatTexts(value, label))
         );
       } else if (otherProps[0]) {
-        const [ item ] = otherProps as unknown as any[];
+        const item = (otherProps as CustomHTMLCollection)[0];
         fragment.append(item);
       }
       return fragment;
