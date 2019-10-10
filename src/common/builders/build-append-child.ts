@@ -6,7 +6,7 @@ import {
   CustomHTMLCollection,
   CustomHTMLElementProps,
 } from '../types/';
-import { isSvg } from '../utils/is-svg';
+import { isSvg as isSvgHelper } from '../utils/is-svg';
 
 const buildAppendChild = (
   document: CustomDocument,
@@ -21,8 +21,6 @@ const buildAppendChild = (
     }: CustomHTMLElementProps = {},
     documentFragment?: CustomDocumentFragment,
   ): CustomDocumentFragment => {
-    const fragment = documentFragment || document.createDocumentFragment();
-
     const append = (
       ($parent: CustomDocumentFragment): CustomDocumentFragment => {
         if (HTMLTag) {
@@ -37,9 +35,13 @@ const buildAppendChild = (
       }
     );
 
-    if (!children || !children.length) {
-      return append(fragment);
-    }
+    const fragment = documentFragment || document.createDocumentFragment();
+
+    const _children = children
+      ? children.filter($child => !!$child)
+      : [];
+
+    if (!_children.length) return append(fragment);
 
     const $element = HTMLTag
       ? createElement({ HTMLTag, value, ...otherProps })
@@ -47,18 +49,22 @@ const buildAppendChild = (
     const $fragment = document.createDocumentFragment();
     const $parent = $element || $fragment;
 
-    children.forEach($child => {
-      if (typeof $child === 'string') {
-        if (isSvg($child)) {
+    _children.forEach($child => {
+      const isString = typeof $child === 'string';
+
+      if (isString) {
+        const isSvg = isSvgHelper($child as string);
+
+        if (isSvg) {
           if ($element) {
-            $element.innerHTML = $child;
+            $element.innerHTML = $child as string;
           } else {
             console.warn('SVG element can be child only of HTMLElement'); // eslint-disable-line
           }
         } else {
-          $parent.append(document.createTextNode($child));
+          $parent.append(document.createTextNode($child as string));
         }
-      } else if ($child) {
+      } else {
         appendChild($child, $fragment);
       }
     });
