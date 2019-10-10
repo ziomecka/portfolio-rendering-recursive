@@ -15,12 +15,22 @@ const buildRender: buildRender = (
           HTMLTag,
           value,
           className,
-        }: HTMLElementProps): CustomHTMLElement => {
+          attributes = {},
+        }: HTMLElementProps = {
+          attributes: {},
+        }): CustomHTMLElement => {
           const $element = document.createElement(HTMLTag);
           $element.innerText = value;
           if (className) {
             $element.classList.add(className);
           }
+
+          if (attributes) {
+            Object.keys(attributes).forEach(key => {
+              $element.setAttribute(key, attributes[ key ]);
+            });
+          }
+
           return $element;
         };
 
