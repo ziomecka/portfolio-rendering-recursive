@@ -16,6 +16,7 @@ class ClassList {
 }
 
 export class SSRElement {
+  public readonly _attributes: ElementAttributes;
   private readonly selfClosing?: boolean;
   private _children: string[];
   public classList: ClassList;
@@ -26,6 +27,8 @@ export class SSRElement {
     this.selfClosing = selfClosing;
     this._children = [];
     this.classList = new ClassList();
+    this.tagName = tagName;
+    this._attributes = {};
   }
 
   public get children (): string {
@@ -65,6 +68,10 @@ export class SSRElement {
     return `${ this.className ? ` class="${ this.className }"` : '' }`;
   }
 
+  public setAttribute (name: string, value: string): void {
+    this._attributes[name] = value;
+  }
+
   private get tags (): string[] {
     const { tagName } = this;
     const notSelfClosing = !this.selfClosing;
@@ -79,6 +86,12 @@ export class SSRElement {
     }
   }
 }
+
+interface ElementAttributes {
+  id?: string;
+  type?: string;
+}
+
 export interface SSRElementProps {
   selfClosing?: boolean;
 }
