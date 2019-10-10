@@ -2,14 +2,22 @@ export type buildRender =
   BuildRender<CustomDocument, CustomHTMLCollection, HTMLElementProps>;
 
 export type HTMLTag = |
-'p' |
-'main' |
+'a' |
+'button' |
 'div' |
-'header' |
 'footer' |
+'form' |
+'header' |
+'img' |
+'input' |
+'label' |
+'main' |
 'nav' |
+'p' |
+'picture' |
 'sidebar' |
-'custom';
+'span' |
+'template';
 
 export type HTMLElementProps = {
   HTMLTag?: HTMLTag;
