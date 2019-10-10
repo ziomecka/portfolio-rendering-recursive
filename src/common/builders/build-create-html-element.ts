@@ -5,7 +5,7 @@ import {
 } from '../html.types';
 import { concatTexts } from '../utils/concat-texts';
 
-const buildCreateHtmlElement = (document: CustomDocument) => (
+const buildCreateHTMLElement = (document: CustomDocument) => (
   ({
     HTMLTag,
     value,
@@ -55,4 +55,4 @@ const buildCreateHtmlElement = (document: CustomDocument) => (
   }
 );
 
-export default buildCreateHtmlElement;
+export default buildCreateHTMLElement;
