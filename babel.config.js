@@ -5,5 +5,10 @@ module.exports = (api) => {
     '@babel/preset-env',
   ];
 
-  return { presets };
+  const plugins = [
+    '@babel/plugin-transform-for-of',
+    '@babel/plugin-proposal-class-properties',
+  ];
+
+  return { presets, plugins };
 };
