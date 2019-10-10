@@ -19,7 +19,7 @@
     "publish": "npm run bundleProd && lerna publish"
   },
   "author": "Katarzyna Ziomek-Zdanowicz <ziomecka78@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "homepage": "https://github.com/ziomecka/rendering-recursive#readme",
   "repository": {
     "type": "git",
