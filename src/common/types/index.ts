@@ -7,6 +7,8 @@ export {
 export { EventHandlers } from './event.types';
 export {
   CustomDocument,
+  CustomDocumentFragment,
+  CustomHTMLCollection,
   CustomHTMLElement,
-  HTMLElementProps,
+  CustomHTMLElementProps,
 } from './html.types';

@@ -1,8 +1,8 @@
 import {
   CustomDocument,
   CustomHTMLElement,
-  HTMLElementProps,
-} from '../html.types';
+  CustomHTMLElementProps,
+} from '../types/';
 import { concatTexts } from '../utils/concat-texts';
 
 const buildCreateHTMLElement = (document: CustomDocument) => (
@@ -15,7 +15,7 @@ const buildCreateHTMLElement = (document: CustomDocument) => (
     innerHTML,
     style = {},
     attributes = {},
-  }: HTMLElementProps = { style: {}, attributes: {}, eventHandlers: {} },
+  }: CustomHTMLElementProps = { style: {}, attributes: {}, eventHandlers: {} },
   ): CustomHTMLElement => {
     const $element = document.createElement(HTMLTag);
     $element.append(document.createTextNode(concatTexts(value, label)));

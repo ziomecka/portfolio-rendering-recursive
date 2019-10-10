@@ -1,13 +1,11 @@
 import {
   AppendChild,
   CreateElement,
-} from '../common.types';
-import {
   CustomDocument,
   CustomDocumentFragment,
   CustomHTMLCollection,
-  HTMLElementProps,
-} from '../html.types';
+  CustomHTMLElementProps,
+} from '../types/';
 import { concatTexts } from '../utils/concat-texts';
 import { isSvg } from '../utils/is-svg';
 
@@ -16,7 +14,13 @@ const buildAppendChild = (
   createElement: CreateElement,
 ): AppendChild => {
   const appendChild = (
-    { children, HTMLTag, value, label, ...otherProps }: HTMLElementProps = {},
+    {
+      children,
+      HTMLTag,
+      value,
+      label,
+      ...otherProps
+    }: CustomHTMLElementProps = {},
     documentFragment?: CustomDocumentFragment,
   ): CustomDocumentFragment => {
     const fragment = documentFragment || document.createDocumentFragment();

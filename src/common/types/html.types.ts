@@ -1,12 +1,12 @@
 import { EventHandlers } from './event.types';
 import { HTMLTag } from './HTMLTag.types';
 
-export type HTMLElementProps = {
+export type CustomHTMLElementProps = {
   HTMLTag?: HTMLTag;
   value?: string;
   label?: string;
   className?: string;
-  children?: HTMLElementProps[];
+  children?: CustomHTMLElementProps[];
   innerHTML?: string;
   eventHandlers?: EventHandlers;
   style?: Record<string, string>;

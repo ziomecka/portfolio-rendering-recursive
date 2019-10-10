@@ -1,5 +1,5 @@
 import {
-  HTMLElementProps,
+  CustomHTMLElementProps,
   buildRender,
 } from '../common/';
 import { SSRDocument } from './SSRDocument';
@@ -11,7 +11,7 @@ type SSRCollection = (SSRElement | SSRFragment)[];
 const _render = buildRender(new SSRDocument());
 
 const render =
-  (props: HTMLElementProps = {}): string => (
+  (props: CustomHTMLElementProps = {}): string => (
     (_render(props) as unknown as SSRCollection)
       .map(child => child.toString()).join('')
   );

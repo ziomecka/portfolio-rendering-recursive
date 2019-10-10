@@ -1,2 +1,2 @@
 export { buildRender } from './builders/';
-export { HTMLElementProps } from './html.types';
+export { CustomHTMLElementProps } from './types/';
