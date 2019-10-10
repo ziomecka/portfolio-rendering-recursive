@@ -26,13 +26,9 @@ const buildAppendChild = (
     const append = (
       ($parent: CustomDocumentFragment): CustomDocumentFragment => {
         if (HTMLTag) {
-          $parent.append(
-            createElement({ HTMLTag, value, ...otherProps })
-          );
+          $parent.append(createElement({ HTMLTag, value, ...otherProps }));
         } else if (value) {
-          $parent.append(
-            document.createTextNode(value)
-          );
+          $parent.append(document.createTextNode(value));
         } else if (otherProps[0]) {
           $parent.append((otherProps as CustomHTMLCollection)[0]);
         }
