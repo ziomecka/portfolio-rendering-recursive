@@ -79,8 +79,9 @@ const buildRender: buildRender = (
             return fragment;
           }
 
-          const $element = HTMLTag && createHtmlElement({ HTMLTag, value, label, ...otherProps });
-
+          const $element = HTMLTag
+            ? createHtmlElement({ HTMLTag, value, label, ...otherProps })
+            : null;
           const $fragment = document.createDocumentFragment();
           const $parent = $element || $fragment;
 
