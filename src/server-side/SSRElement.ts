@@ -80,7 +80,13 @@ export class SSRElement {
   }
 
   private get attributes (): string {
-    const style = JSON.stringify(this.style);
+    let style = JSON.stringify(this.style);
+    style = style.substring(1, style.length - 1)
+      .replace(/["']/gi, '')
+      .replace(/[,]/gi, '; ')
+      .replace(
+        /\s?(([a-z])([A-Z]))(\w*:)/g,
+        ($1, $2, $3, $4, $5) => `${ $3 }-${ $4.toLowerCase() }${ $5 }`);
 
     return (
       Object.keys(this._attributes)
@@ -92,8 +98,8 @@ export class SSRElement {
             }`;
           return attrStr;
         }, '')
-        .concat(`${ this.className ? ` class="${ this.className }"` : '' }`)
-        .concat(style.substring(1, style.length - 1))
+        .concat(this.className ? ` class="${ this.className }"` : '')
+        .concat(style ? ` style="${ style }"` : '')
     );
   }
 

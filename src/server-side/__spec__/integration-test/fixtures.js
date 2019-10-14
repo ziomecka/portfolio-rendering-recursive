@@ -71,6 +71,19 @@ const scenarios = [
     },
     result: `<${ fooProps.HTMLTag } class="${ fooProps.className }">${ fooProps.value }<${ barProps.HTMLTag } class="${ barProps.className }">${ barProps.value }<${ someProps.HTMLTag } class="${ someProps.className }">${ someProps.value }</${ someProps.HTMLTag }></${ barProps.HTMLTag }></${ fooProps.HTMLTag }>`,
   },
+  {
+    props: {
+      HTMLTag: 'main',
+      style: {
+        backgroundColor: '#ff0000',
+        'font-size': '16px',
+        display: 'flex',
+        flexDirection: 'column',
+        animation: 'moveDown',
+      },
+    },
+    result: '<main style="background-color:#ff0000; font-size:16px; display:flex; flex-direction:column; animation:moveDown"></main>',
+  },
 ];
 
 export default {
