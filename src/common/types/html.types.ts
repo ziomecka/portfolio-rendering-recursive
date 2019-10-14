@@ -1,14 +1,16 @@
 import { EventHandlers } from './event.types';
 import { HTMLTag } from './HTMLTag.types';
 
+export type Style = Record<string, string | number>;
+
 export type CustomHTMLElementProps = {
   HTMLTag?: HTMLTag;
   value?: string;
-  className?: string;
-  children?: CustomHTMLElementProps[];
   innerHTML?: string;
+  className?: string;
+  children?: (CustomHTMLElementProps)[];
   eventHandlers?: EventHandlers;
-  style?: Record<string, string>;
+  style?: Style;
   attributes?: CustomElementAttributes;
 }
 
@@ -21,9 +23,10 @@ export interface CustomHTMLElement {
   innerText?: string;
   innerHTML?: string;
   className?: string;
+  children?: string;
   append: CustomAppend;
   classList?: { add(value: string): void };
-  style?: Record<string, string>;
+  style?: Style;
   addEventListener(eventName: string, callback: (event: Event) => void): void;
   setAttribute(name: string, value: string): void;
 }
