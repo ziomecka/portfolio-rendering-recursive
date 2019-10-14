@@ -1,6 +1,6 @@
 {
   "name": "rendering-recursive",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "Recursive rendering of html nodes for client and server side",
   "keywords": [
     "rendering",
