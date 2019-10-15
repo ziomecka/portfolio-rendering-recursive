@@ -27,7 +27,11 @@ export interface CustomHTMLElement {
   append: CustomAppend;
   classList?: { add(value: string): void };
   style?: Style;
-  addEventListener(eventName: string, callback: (event: Event) => void): void;
+  addEventListener(
+    eventName: string,
+    callback: (event: Event) => void,
+    useCapture?: boolean
+  ): void;
   setAttribute(name: string, value: string): void;
 }
 

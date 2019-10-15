@@ -2,9 +2,13 @@ import {
   CustomDocument,
   CustomHTMLElement,
   CustomHTMLElementProps,
+  onEvent,
 } from '../types/';
 
-const buildCreateHTMLElement = (document: CustomDocument) => (
+const buildCreateHTMLElement = (
+  document: CustomDocument,
+  useCaptureDefault = true,
+) => (
   ({
     HTMLTag,
     value,
@@ -34,9 +38,16 @@ const buildCreateHTMLElement = (document: CustomDocument) => (
     });
 
     Object.keys(eventHandlers).forEach(eventName => {
+      const eventHandler = eventHandlers[eventName];
+      const [
+        callback = eventHandler,
+        useCapture = useCaptureDefault,
+      ] = Array.isArray(eventHandler) ? eventHandler : [];
+
       $element.addEventListener(
         eventName.slice(2).toLowerCase(),
-        eventHandlers[eventName]
+        callback as onEvent,
+        useCapture
       );
     });
 

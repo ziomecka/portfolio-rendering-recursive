@@ -4,7 +4,10 @@ export {
   BuildRender,
   CreateElement,
 } from './common.types';
-export { EventHandlers } from './event.types';
+export {
+  EventHandlers,
+  onEvent,
+} from './event.types';
 export {
   CustomDocument,
   CustomDocumentFragment,
