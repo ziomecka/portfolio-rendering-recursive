@@ -1,16 +1,17 @@
 type CustomEvent = {};
-type onEvent = EventHandler<CustomEvent>;
+type Handler<E> = (event: E) => void;
 
-type EventHandler<E> = (event: E) => void;
+export type onEvent = Handler<CustomEvent>;
+
+type EventHandler = onEvent | [ onEvent, boolean ];
 
 export type EventHandlers = {
-  onClick?: onEvent;
-  onSubmit?: onEvent;
-  onChange?: onEvent;
-  onInput?: onEvent;
-  onKeydown?: onEvent;
-  onBlur?: onEvent;
-  onFocus?: onEvent;
-} & {
-  [key: string]: onEvent;
+  onClick?: EventHandler;
+  onSubmit?: EventHandler;
+  onChange?: EventHandler;
+  onInput?: EventHandler;
+  onKeydown?: EventHandler;
+  onBlur?: EventHandler;
+  onFocus?: EventHandler;
+  [key: string]: EventHandler;
 };
