@@ -6,8 +6,9 @@ const isProduction = process.env.NODE_ENV === 'production';
 const outputDir = isProduction ? 'prodBundle' : 'devBundle';
 
 const cleanWebpackPlugin = new CleanWebpackPlugin({
-  cleanBeforeBuildPatterns: [
-    `${ outputDir }/**/*.js`,
+  cleanOnceBeforeBuildPatterns: [
+    `**/*.js`,
+    '!/**/README.md',
   ],
   verbose: true,
 });
