@@ -80,13 +80,26 @@ export class SSRElement {
   }
 
   private get attributes (): string {
-    let style = JSON.stringify(this.style);
+    // split cssProperties by the upperCase,
+    // join with dash,
+    // convert to lower case
+    let style = JSON.stringify(
+      Object.keys(this.style)
+        .reduce((newStyleObj, cssProperty) => {
+          newStyleObj[
+            cssProperty
+              .split(/(?=[A-Z])/)
+              .join('-')
+              .toLowerCase()
+          ] = this.style[cssProperty];
+          return newStyleObj;
+        }, {})
+    );
+
     style = style.substring(1, style.length - 1)
       .replace(/["']/gi, '')
       .replace(/[,]/gi, '; ')
-      .replace(
-        /\s?(([a-z])([A-Z]))(\w*:)/g,
-        ($1, $2, $3, $4, $5) => `${ $3 }-${ $4.toLowerCase() }${ $5 }`);
+      .replace(/\swebkit/gi, ' -webkit');
 
     return (
       Object.keys(this._attributes)
