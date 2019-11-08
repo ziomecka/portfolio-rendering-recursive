@@ -20,7 +20,9 @@ export class SSRElement {
   private readonly selfClosing?: boolean;
   private _children: string[];
   public classList: ClassList;
-  public style: Record<string, string>;
+  public style: {
+    [key: string]: string | number | boolean;
+  };
   constructor (
     public readonly tagName: string,
     { selfClosing }: SSRElementProps = {}

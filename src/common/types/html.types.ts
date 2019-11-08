@@ -1,7 +1,9 @@
 import { EventHandlers } from './event.types';
 import { HTMLTag } from './HTMLTag.types';
 
-export type Style = Record<string, string | number>;
+export type Style = {
+  [key: string]: string | number | boolean;
+};
 
 export type CustomHTMLElementProps = {
   HTMLTag?: HTMLTag;
