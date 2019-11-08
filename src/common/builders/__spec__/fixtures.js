@@ -16,6 +16,21 @@ const someProps = {
   className: 'some-some-class',
 };
 
+
+const someSvg = {
+  HTMLTag: 'div',
+  children: [
+    '<svg id="heading" xmlns="http://www.w3.org/2000/svg"><g><path d="m 68,108. z"></path></g></svg>'
+  ]
+};
+
+const fooSvg = {
+  HTMLTag: 'div',
+  children: [
+    '<svg id="heading" xmlns="http://www.w3.org/2000/svg"><g><path d="m 68,108. z"/></g></svg>'
+  ]
+};
+
 const nested = {
   ...fooProps,
   children: [
@@ -45,6 +60,14 @@ const scenarios = [
   {
     props: nested,
     result: `<!DOCTYPE html><html><head></head><body><div id="root"><${ fooProps.HTMLTag } class="${ fooProps.className }">${ fooProps.value }<${ barProps.HTMLTag } class="${ barProps.className }">${ barProps.value }<${ someProps.HTMLTag } class="${ someProps.className }">${ someProps.value }</${ someProps.HTMLTag }></${ barProps.HTMLTag }></${ fooProps.HTMLTag }></div></body></html>`,
+  },
+  {
+    props: someSvg,
+    result: `<!DOCTYPE html><html><head></head><body><div id="root"><${ someSvg.HTMLTag }>${ someSvg.children[0] }</${ someSvg.HTMLTag }></div></body></html>`,
+  },
+  {
+    props: fooSvg,
+    result: `<!DOCTYPE html><html><head></head><body><div id="root"><${ fooSvg.HTMLTag }>${ someSvg.children[0] }</${ fooSvg.HTMLTag }></div></body></html>`,
   },
 ];
 

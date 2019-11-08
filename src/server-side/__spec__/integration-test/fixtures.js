@@ -80,9 +80,10 @@ const scenarios = [
         display: 'flex',
         flexDirection: 'column',
         animation: 'moveDown',
+        WebkitBoxAlign: 'start',
       },
     },
-    result: '<main style="background-color:#ff0000; font-size:16px; display:flex; flex-direction:column; animation:moveDown"></main>',
+    result: '<main style="background-color:#ff0000; font-size:16px; display:flex; flex-direction:column; animation:moveDown; -webkit-box-align:start"></main>',
   },
 ];
 
