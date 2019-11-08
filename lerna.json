@@ -1,7 +1,7 @@
 {
   "packages": [
-    "src/client-side/",
-    "src/server-side/"
+    "devBundle/client-side/",
+    "devBundle/server-side/"
   ],
   "version": "0.1.2",
   "command": {

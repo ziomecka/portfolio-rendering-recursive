@@ -16,7 +16,7 @@
     "lint": "eslint . --ext .ts,.js",
     "test": "mocha -r ts-node/register src/**/*spec.js",
     "webpack": "webpack --config ./webpack/index.babel.js",
-    "publish": "npm run bundleProd && lerna publish"
+    "publish": "npm run bundleDev && lerna publish"
   },
   "author": "Katarzyna Ziomek-Zdanowicz <ziomecka78@gmail.com>",
   "license": "MIT",
