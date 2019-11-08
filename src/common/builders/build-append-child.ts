@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import {
   AppendChild,
   CreateElement,
@@ -7,6 +8,8 @@ import {
   CustomHTMLElementProps,
 } from '../types/';
 import { isSvg as isSvgHelper } from '../utils/is-svg';
+
+const { DOMParser } = require('xmldom');
 
 const buildAppendChild = (
   document: CustomDocument,
@@ -51,13 +54,15 @@ const buildAppendChild = (
 
     _children.forEach($child => {
       const isString = typeof $child === 'string';
-
       if (isString) {
         const isSvg = isSvgHelper($child as string);
 
         if (isSvg) {
           if ($element) {
-            $element.innerHTML = $child as string;
+            $element.innerHTML =
+              new DOMParser()
+                .parseFromString($child)
+                .toString();
           } else {
             console.warn('SVG element can be child only of HTMLElement'); // eslint-disable-line
           }
