@@ -101,7 +101,10 @@ export class SSRElement {
     style = style.substring(1, style.length - 1)
       .replace(/["']/gi, '')
       .replace(/[,]/gi, '; ')
-      .replace(/\swebkit/gi, ' -webkit');
+      .replace(/\swebkit-/gi, ' -webkit-')
+      .replace(/\sms-/gi, ' -ms-')
+      .replace(/\smoz-/gi, ' -moz-')
+      .replace(/\so-/gi, ' -o-');
 
     return (
       Object.keys(this._attributes)

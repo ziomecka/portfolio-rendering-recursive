@@ -81,9 +81,13 @@ const scenarios = [
         flexDirection: 'column',
         animation: 'moveDown',
         WebkitBoxAlign: 'start',
+        msFlexAlign: 'start',
+        opacity: 1,
+        mozFlexAlign: 'start',
+        oFlexAlign: 'start',
       },
     },
-    result: '<main style="background-color:#ff0000; font-size:16px; display:flex; flex-direction:column; animation:moveDown; -webkit-box-align:start"></main>',
+    result: '<main style="background-color:#ff0000; font-size:16px; display:flex; flex-direction:column; animation:moveDown; -webkit-box-align:start; -ms-flex-align:start; opacity:1; -moz-flex-align:start; -o-flex-align:start"></main>',
   },
 ];
 
