@@ -1,4 +1,5 @@
 import { SSRFragment } from './SSRFragment';
+import { resolveArray } from '../common/';
 
 class ClassList {
   public list: string[];
@@ -88,12 +89,15 @@ export class SSRElement {
     let style = JSON.stringify(
       Object.keys(this.style)
         .reduce((newStyleObj, cssProperty) => {
-          newStyleObj[
-            cssProperty
-              .split(/(?=[A-Z])/)
-              .join('-')
-              .toLowerCase()
-          ] = this.style[cssProperty];
+          const value = this.style[cssProperty];
+
+          newStyleObj[cssProperty
+            .split(/(?=[A-Z])/)
+            .join('-')
+            .toLowerCase()
+          ] = !Array.isArray(value)
+            ? value
+            : resolveArray(cssProperty, value as undefined as string[]);
           return newStyleObj;
         }, {})
     );
