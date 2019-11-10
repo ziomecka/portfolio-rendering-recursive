@@ -11,3 +11,10 @@
 * Corrects the way the 'style' attribute is stringified in SSRElement's 'attributes' getter: adds dashes before each capital letter in css property, adds dash before webkit prefix
 * Uses xmldom for inline svg
 
+# @0.1.3 [author: Katarzyna Ziomek-Zdanowicz, date: 2019.11.xx]
+* Adds xmldom to parse inline svg
+* Corrects the way the style attribute is stringified in SSRElement's attributes getter
+* Changes Style type from Record to String  indexed object
+
+# @0.1.4 [author: Katarzyna Ziomek-Zdanowicz, date: 2019.11.10]
+* Adds all vendors to SSRElement's attributes getter
