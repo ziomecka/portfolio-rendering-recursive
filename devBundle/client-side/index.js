@@ -2359,17 +2359,10 @@ var buildAppendChild = function buildAppendChild(document, createElement) {
 
       if (isString) {
         var isSvg = is_svg_1.isSvg($child);
-        console.log('dupa1');
 
         if (isSvg) {
           if ($element) {
-            $element.innerHTML = new DOMParser().parseFromString($child).toString(); // $element.append(
-            //   new DOMParser()
-            //     .parseFromString($child)
-            //     .toString()
-            // );
-
-            console.log('dupa2', $element.innerHTML); // console.log('dupa');
+            $element.innerHTML = new DOMParser().parseFromString($child).toString();
           } else {
             console.warn('SVG element can be child only of HTMLElement'); // eslint-disable-line
           }
@@ -2412,6 +2405,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var resolve_array_1 = __webpack_require__(/*! ../utils/resolve-array */ "./src/common/utils/resolve-array.ts");
+
 var buildCreateHTMLElement = function buildCreateHTMLElement(document, useCaptureDefault) {
   if (useCaptureDefault === void 0) {
     useCaptureDefault = true;
@@ -2442,7 +2437,8 @@ var buildCreateHTMLElement = function buildCreateHTMLElement(document, useCaptur
     });
     if (innerHTML) $element.innerHTML = innerHTML;
     Object.keys(style).forEach(function (key) {
-      $element.style[key] = style[key];
+      var value = style[key];
+      $element.style[key] = !Array.isArray(value) ? value : resolve_array_1.resolveArray(key, value);
     });
     Object.keys(attributes).forEach(function (key) {
       $element.setAttribute(key, attributes[key]);
@@ -2540,6 +2536,10 @@ var builders_1 = __webpack_require__(/*! ./builders/ */ "./src/common/builders/i
 
 exports.buildRender = builders_1.buildRender;
 
+var resolve_array_1 = __webpack_require__(/*! ./utils/resolve-array */ "./src/common/utils/resolve-array.ts");
+
+exports.resolveArray = resolve_array_1.resolveArray;
+
 /***/ }),
 
 /***/ "./src/common/utils/is-svg.js":
@@ -2556,6 +2556,26 @@ exports.isSvg = function (str) {
     return /^<svg[\w\s:.;&/"-=<>\\]*<\/svg>$/.test(str);
 };
 
+
+/***/ }),
+
+/***/ "./src/common/utils/resolve-array.ts":
+/*!*******************************************!*\
+  !*** ./src/common/utils/resolve-array.ts ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.resolveArray = function (property, arr) {
+  return arr.join("; " + property + ":");
+};
 
 /***/ })
 
