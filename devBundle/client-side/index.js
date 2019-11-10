@@ -2359,10 +2359,17 @@ var buildAppendChild = function buildAppendChild(document, createElement) {
 
       if (isString) {
         var isSvg = is_svg_1.isSvg($child);
+        console.log('dupa1');
 
         if (isSvg) {
           if ($element) {
-            $element.innerHTML = new DOMParser().parseFromString($child).toString();
+            $element.innerHTML = new DOMParser().parseFromString($child).toString(); // $element.append(
+            //   new DOMParser()
+            //     .parseFromString($child)
+            //     .toString()
+            // );
+
+            console.log('dupa2', $element.innerHTML); // console.log('dupa');
           } else {
             console.warn('SVG element can be child only of HTMLElement'); // eslint-disable-line
           }
@@ -2391,44 +2398,71 @@ exports["default"] = buildAppendChild;
 
 /***/ }),
 
-/***/ "./src/common/builders/build-create-html-element.js":
+/***/ "./src/common/builders/build-create-html-element.ts":
 /*!**********************************************************!*\
-  !*** ./src/common/builders/build-create-html-element.js ***!
+  !*** ./src/common/builders/build-create-html-element.ts ***!
   \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-var buildCreateHTMLElement = function (document, useCaptureDefault) {
-    if (useCaptureDefault === void 0) { useCaptureDefault = true; }
-    return (function (_a) {
-        var _b = _a === void 0 ? { style: {}, attributes: {}, eventHandlers: {} } : _a, HTMLTag = _b.HTMLTag, value = _b.value, _c = _b.className, className = _c === void 0 ? '' : _c, _d = _b.eventHandlers, eventHandlers = _d === void 0 ? {} : _d, innerHTML = _b.innerHTML, _e = _b.style, style = _e === void 0 ? {} : _e, _f = _b.attributes, attributes = _f === void 0 ? {} : _f;
-        var $element = document.createElement(HTMLTag);
-        if (value)
-            $element.append(document.createTextNode(value));
-        className
-            .split(' ')
-            .forEach(function (name) { return name && $element.classList.add(name); });
-        if (innerHTML)
-            $element.innerHTML = innerHTML;
-        Object.keys(style).forEach(function (key) {
-            $element.style[key] = style[key];
-        });
-        Object.keys(attributes).forEach(function (key) {
-            $element.setAttribute(key, attributes[key]);
-        });
-        Object.keys(eventHandlers).forEach(function (eventName) {
-            var eventHandler = eventHandlers[eventName];
-            var _a = Array.isArray(eventHandler) ? eventHandler : [], _b = _a[0], callback = _b === void 0 ? eventHandler : _b, _c = _a[1], useCapture = _c === void 0 ? useCaptureDefault : _c;
-            $element.addEventListener(eventName.slice(2).toLowerCase(), callback, useCapture);
-        });
-        return $element;
-    });
-};
-exports.default = buildCreateHTMLElement;
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var buildCreateHTMLElement = function buildCreateHTMLElement(document, useCaptureDefault) {
+  if (useCaptureDefault === void 0) {
+    useCaptureDefault = true;
+  }
+
+  return function (_a) {
+    var _b = _a === void 0 ? {
+      style: {},
+      attributes: {},
+      eventHandlers: {}
+    } : _a,
+        HTMLTag = _b.HTMLTag,
+        value = _b.value,
+        _c = _b.className,
+        className = _c === void 0 ? '' : _c,
+        _d = _b.eventHandlers,
+        eventHandlers = _d === void 0 ? {} : _d,
+        innerHTML = _b.innerHTML,
+        _e = _b.style,
+        style = _e === void 0 ? {} : _e,
+        _f = _b.attributes,
+        attributes = _f === void 0 ? {} : _f;
+
+    var $element = document.createElement(HTMLTag);
+    if (value) $element.append(document.createTextNode(value));
+    className.split(' ').forEach(function (name) {
+      return name && $element.classList.add(name);
+    });
+    if (innerHTML) $element.innerHTML = innerHTML;
+    Object.keys(style).forEach(function (key) {
+      $element.style[key] = style[key];
+    });
+    Object.keys(attributes).forEach(function (key) {
+      $element.setAttribute(key, attributes[key]);
+    });
+    Object.keys(eventHandlers).forEach(function (eventName) {
+      var eventHandler = eventHandlers[eventName];
+
+      var _a = Array.isArray(eventHandler) ? eventHandler : [],
+          _b = _a[0],
+          callback = _b === void 0 ? eventHandler : _b,
+          _c = _a[1],
+          useCapture = _c === void 0 ? useCaptureDefault : _c;
+
+      $element.addEventListener(eventName.slice(2).toLowerCase(), callback, useCapture);
+    });
+    return $element;
+  };
+};
+
+exports["default"] = buildCreateHTMLElement;
 
 /***/ }),
 
@@ -2448,7 +2482,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var build_append_child_1 = __webpack_require__(/*! ./build-append-child */ "./src/common/builders/build-append-child.ts");
 
-var build_create_html_element_1 = __webpack_require__(/*! ./build-create-html-element */ "./src/common/builders/build-create-html-element.js");
+var build_create_html_element_1 = __webpack_require__(/*! ./build-create-html-element */ "./src/common/builders/build-create-html-element.ts");
 
 exports.buildRender = function (document) {
   if (document) {
