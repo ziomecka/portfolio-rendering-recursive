@@ -4,6 +4,7 @@ import {
   CustomHTMLElementProps,
   onEvent,
 } from '../types/';
+import { resolveArray } from '../utils/resolve-array';
 
 const buildCreateHTMLElement = (
   document: CustomDocument,
@@ -30,7 +31,11 @@ const buildCreateHTMLElement = (
     if (innerHTML) $element.innerHTML = innerHTML;
 
     Object.keys(style).forEach(key => {
-      $element.style[key] = style[key];
+      const value = style[key];
+
+      $element.style[key] = !Array.isArray(value)
+        ? value
+        : resolveArray(key, value);
     });
 
     Object.keys(attributes).forEach(key => {
