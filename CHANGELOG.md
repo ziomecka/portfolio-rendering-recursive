@@ -18,3 +18,6 @@
 
 # @0.1.4 [author: Katarzyna Ziomek-Zdanowicz, date: 2019.11.10]
 * Adds all vendors to SSRElement's attributes getter
+
+# @0.1.5 [author: Katarzyna Ziomek-Zdanowicz, date: 2019.11.10]
+* Resolves array in style object (to string)
